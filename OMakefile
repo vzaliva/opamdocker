@@ -1,0 +1,14 @@
+# Use the byte-code compiler
+BYTE_ENABLED = false
+NATIVE_ENABLED = true
+OCAMLCFLAGS += -g -thread
+OCAMLOPTFLAGS += -thread
+
+USE_OCAMLFIND = true
+OCAMLPACKS[] = batteries
+
+FILES = hello
+
+#Build the program
+OCamlProgram(hello, $(FILES))
+.DEFAULT: hello
