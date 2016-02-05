@@ -4,7 +4,7 @@ MAINTAINER Vadim Zaliva <lord@crocodile.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Use AWS mirrors. Comment out next line if you building outside of AWS east
+# OPTIONAL: Use AWS mirrors. Comment out next line if you building outside of AWS east
 RUN sed 's@archive.ubuntu.com@us-east-1.ec2.archive.ubuntu.com@' -i /etc/apt/sources.list
 RUN apt-get -y update -qq
 RUN apt-get upgrade -y
@@ -19,25 +19,25 @@ RUN apt-get -y install -qq ocaml ocaml-native-compilers camlp4-extra aspcud opam
 
 #Install application
 RUN useradd -ms /bin/bash opam
-ADD ./src $SRCS_DIR/src
+COPY ./src /home/opam/src
 
-COPY ./assets/.profile $SRCS_DIR
-COPY ./assets/.ocamlinit $SRCS_DIR
-RUN chown -R opam:opam $SRCS_DIR/.profile $SRCS_DIR/.ocamlinit $SRCS_DIR/src
-RUN chmod a+rx $SRCS_DIR/.profile
-RUN chmod a+r  $SRCS_DIR/.ocamlinit
+COPY ./assets/profile /home/opam/.profile
+COPY ./assets/ocamlinit /home/opam/.ocamlinit
+RUN chown -R opam:opam /home/opam/.profile /home/opam/.ocamlinit /home/opam/src
+RUN chmod a+rx /home/opam/.profile
+RUN chmod a+r  /home/opam/.ocamlinit
 
 USER opam
-ENV HOME $SRCS_DIR
+ENV HOME /home/opam
 ENV OPAMVERBOSE 0
 ENV OPAMYES 1
-WORKDIR $SRCS_DIR
+
+WORKDIR /home/opam
 RUN opam init
 
-RUN opam install batteries
-RUN opam install omake
+RUN opam install batteries omake
 
-WORKDIR $SRCS_DIR/src
+WORKDIR /home/opam/src
 RUN /bin/bash -l -c "omake"
 
 CMD ["./hello"]

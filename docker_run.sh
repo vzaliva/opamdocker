@@ -1,3 +1,5 @@
 #! /bin/bash
-docker run -t opamdocker_hello
+APPL_NAME="opamdocker_hello"
+
+docker run -t $APPL_NAME
 
