@@ -4,7 +4,7 @@ MAINTAINER Vadim Zaliva <lord@crocodile.org>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# OPTIONAL: Use AWS mirrors. Comment out next line if you building outside of AWS east
+# CUSTOMIZE: Use AWS mirrors. Comment out next line if you building outside of AWS east
 RUN sed 's@archive.ubuntu.com@us-east-1.ec2.archive.ubuntu.com@' -i /etc/apt/sources.list
 RUN apt-get -y update -qq
 RUN apt-get upgrade -y
@@ -15,6 +15,8 @@ RUN apt-get -y install -qq sudo pkg-config git build-essential software-properti
 #See https://opam.ocaml.org/doc/Install.html#Ubuntu
 RUN echo "yes" | add-apt-repository ppa:avsm/ppa
 RUN apt-get -y update -qq
+# CUSTOMIZE: add additonal packages you may need. 
+# For example OPAM ocamlnet package requires: zlib1g zlib1g-dev
 RUN apt-get -y install -qq ocaml ocaml-native-compilers camlp4-extra aspcud opam m4 darcs mercurial
 
 #Install application
@@ -35,6 +37,7 @@ ENV OPAMYES 1
 WORKDIR /home/opam
 RUN opam init
 
+# CUSTOMIZE: add additional OPAM packages you need to install
 RUN opam install batteries omake
 
 WORKDIR /home/opam/src
