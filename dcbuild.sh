@@ -13,7 +13,6 @@ mkdir $BUILD_ASSETS
 cp -rp src $BUILD_DIR
 cp ./assets/profile $BUILD_ASSETS/.profile 
 cp ./assets/ocamlinit $BUILD_ASSETS/.ocamlinit
-sed -e "s|\$SRCS_DIR|$SRCS_DIR|g" ./assets/default.conf.tpl > $BUILD_ASSETS/default.conf
 
 #Prepare Docker file
 sed -e "s|\$SRCS_DIR|$SRCS_DIR|g" ./assets/dockerfile.tpl > $BUILD_DIR/Dockerfile

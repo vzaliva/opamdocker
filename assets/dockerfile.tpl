@@ -18,8 +18,8 @@ RUN apt-get -y update -qq
 RUN apt-get -y install -qq ocaml ocaml-native-compilers camlp4-extra aspcud opam m4 darcs mercurial
 
 #Install application
-RUN adduser opam --home $SRCS_DIR
-ADD ./src $SRCS_DIR
+RUN useradd -ms /bin/bash opam
+ADD ./src $SRCS_DIR/src
 
 COPY ./assets/.profile $SRCS_DIR
 COPY ./assets/.ocamlinit $SRCS_DIR

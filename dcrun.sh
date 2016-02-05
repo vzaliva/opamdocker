@@ -1,3 +1,3 @@
 #! /bin/bash
-docker run -d opamdocker_hello
+docker run -t opamdocker_hello
 
