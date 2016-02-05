@@ -1,6 +1,6 @@
 # opamdocker
 
-Simple Docker container to build OCaml project using dependencies installed via OPAM
+Simple Docker container to build and run OCaml project using dependencies installed via OPAM
 
 Do build container use _'docker_build.sh'_ script. To run it use _'docker_run.sh'_.
 
